@@ -70,7 +70,9 @@ h1 {
   flex: 1;
   margin-left: 10px;
 }
-
+.hidden{
+  display: none;
+}
 .complete-checkbox {
   width: 18px;
   height: 18px;
