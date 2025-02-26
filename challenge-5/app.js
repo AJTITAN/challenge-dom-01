@@ -41,22 +41,23 @@ function updateCarousel() {
   caption.innerText = images[index].caption;
 }
 function nextSlide() {
+  clearInterval(countdownInterval); 
   index = (index + 1) % images.length;
   updateCarousel();
-  startCountdown();
+  if (intervalId) startCountdown(); 
 }
 function prevSlide() {
+  clearInterval(countdownInterval); 
   index = (index - 1 + images.length) % images.length;
   updateCarousel();
 }
 function startCountdown() {
   countdown = 5;
-  timerDisplay.innerText = `Next slide in ${countdown}`;
+  timerDisplay.innerText = `Next slide in ${countdown}s`;
 
-  clearInterval(countdownInterval);
   countdownInterval = setInterval(() => {
     countdown--;
-    timerDisplay.innerText = `Next slide in ${countdown}`;
+    timerDisplay.innerText = `Next slide in ${countdown}s`;
     if (countdown <= 0) {
       clearInterval(countdownInterval);
       nextSlide();
@@ -65,8 +66,8 @@ function startCountdown() {
 }
 function startAutoPlay() {
   if (!intervalId) {
-    startCountdown();
     intervalId = setInterval(nextSlide, 5000);
+    startCountdown();
     autoPlayButton.innerText = "Stop Auto Play";
   }
 }
@@ -79,8 +80,6 @@ function stopAutoPlay() {
   timerDisplay.innerText = "";
   autoPlayButton.innerText = "Start Auto Play";
 }
-
-// Button event listeners
 nextButton.addEventListener("click", () => {
   stopAutoPlay();
   nextSlide();
